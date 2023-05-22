@@ -37,6 +37,7 @@ function isCorrectDate(selectedDate, date) {
     isActiveTime = false;
   } else {
     Notify.success('Good date!');
+    isActiveTime = true;
     refs.btnStartTime.addEventListener('click', activateTimer);
     refs.btnStartTime.removeAttribute('disabled');
 
@@ -44,7 +45,6 @@ function isCorrectDate(selectedDate, date) {
       refs.btnStartTime.setAttribute('disabled', '');
       let dateToEnd = selectedDate - date;
       let intervalId = null;
-      isActiveTime = true;
 
       intervalId = setInterval(() => {
         dateToEnd -= 1000;
