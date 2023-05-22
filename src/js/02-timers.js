@@ -20,7 +20,7 @@ const options = {
   onClose(selectedDates) {
     const selectedDate = selectedDates[0].getTime();
     const date = new Date().getTime();
-    let isActiveTime = false;
+    // let isActiveTime = false;
 
     isCorrectDate(selectedDate, date);
   },
@@ -29,18 +29,16 @@ const options = {
 flatpickr(refs.inputDate, options);
 
 function isCorrectDate(selectedDate, date) {
+  let isActiveTime = false;
+
   if (selectedDate <= date) {
     Notify.failure('Please choose a date in the future');
     refs.btnStartTime.setAttribute('disabled', '');
     isActiveTime = false;
   } else {
     Notify.success('Good date!');
-    refs.btnStartTime.addEventListener('click', startTimer);
+    refs.btnStartTime.addEventListener('click', activateTimer);
     refs.btnStartTime.removeAttribute('disabled');
-
-    function startTimer() {
-      activateTimer();
-    }
 
     function activateTimer() {
       refs.btnStartTime.setAttribute('disabled', '');
