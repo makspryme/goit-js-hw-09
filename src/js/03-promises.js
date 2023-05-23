@@ -19,24 +19,26 @@ function startPromises(e) {
   const amount = refs.amount.value;
   let position = 1;
 
-  setTimeout(() => {
-    createPromise(position, first)
-      .then(({ position, delay }) => {
-        Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
-      })
-      .catch(({ position, delay }) => {
-        Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
-      });
+  let timeDelay = Number(first);
 
+  setTimeout(() => {
+    createPromise(position, timeDelay)
+      .then(({ position, timeDelay }) => {
+        Notify.success(`✅ Fulfilled promise ${position} in ${timeDelay}ms`);
+      })
+      .catch(({ position, timeDelay }) => {
+        Notify.failure(`❌ Rejected promise ${position} in ${timeDelay}ms`);
+      });
     const intervalId = setInterval(() => {
       position += 1;
+      timeDelay += Number(delay);
 
-      createPromise(position, first)
-        .then(({ position, delay }) => {
-          Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+      createPromise(position, timeDelay)
+        .then(({ position, timeDelay }) => {
+          Notify.success(`✅ Fulfilled promise ${position} in ${timeDelay}ms`);
         })
-        .catch(({ position, delay }) => {
-          Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+        .catch(({ position, timeDelay }) => {
+          Notify.failure(`❌ Rejected promise ${position} in ${timeDelay}ms`);
         });
 
       clearTimer(position, amount, intervalId);
@@ -44,14 +46,14 @@ function startPromises(e) {
   }, first);
 }
 
-function createPromise(position, delay) {
+function createPromise(position, timeDelay) {
   const shouldResolve = Math.random() > 0.3;
 
   const promise = new Promise((resolve, reject) => {
     if (shouldResolve) {
-      resolve({ position, delay });
+      resolve({ position, timeDelay });
     } else {
-      reject({ position, delay });
+      reject({ position, timeDelay });
     }
   });
 

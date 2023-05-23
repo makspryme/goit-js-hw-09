@@ -45,6 +45,7 @@ function isCorrectDate(selectedDate, date) {
       refs.btnStartTime.setAttribute('disabled', '');
       let dateToEnd = selectedDate - date;
       let intervalId = null;
+      refs.inputDate.setAttribute('disabled', '');
 
       intervalId = setInterval(() => {
         dateToEnd -= 1000;
@@ -64,6 +65,8 @@ function isCorrectDate(selectedDate, date) {
 
         if (stopTimer) {
           clearInterval(intervalId);
+          refs.inputDate.removeAttribute('disabled');
+
           Notify.success('putin loh');
         }
       }, 1000);
